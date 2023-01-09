@@ -18,9 +18,8 @@ TODO:
 - [x] ToC updates
 - [x] contributing.md
 - [x] code of conduct
-- [ ] development.md
-- [ ] issue templates
-- [ ] pull request template
+- [x] issue templates
+- [x] pull request template
 - [ ] changelog generation
 
 ## Packages
