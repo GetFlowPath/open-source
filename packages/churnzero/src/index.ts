@@ -1,1 +1,1 @@
-export * from './lib/ChurnZero';
+export * from './lib/churnzero';
