@@ -15,7 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@open-source/churnzero": ["packages/churnzero/src/index.ts"]
+      "@open-source/ChurnZero": ["packages/ChurnZero/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
