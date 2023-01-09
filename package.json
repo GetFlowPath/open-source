@@ -2,7 +2,13 @@
   "name": "open-source",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "update": "nx migrate latest",
+    "dep-graph": "nx dep-graph",
+    "contributors:add": "npx all-contributors add",
+    "docs:toc": "find . -path ./node_modules -prune -o -path ./dist -prune -o -path ./apps -prune -o -path ./.github -prune -o -path ./.git -prune -o -path ./**/CHANGELOG.md -prune -o -path ./CHANGELOG.md -prune -o -path ./CODE_OF_CONDUCT.md -prune -o -name '*.md' -print |  xargs npx doctoc --title '## Table of Contents' --maxlevel 4",
+    "docs:ci": "yarn run docs:ts --silent"
+  },
   "author": "@FlowPath",
   "homepage": "https://github.com/GetFlowPath/open-source",
   "repository": {
@@ -33,6 +39,8 @@
     "@types/node": "16.11.7",
     "@typescript-eslint/eslint-plugin": "^5.36.1",
     "@typescript-eslint/parser": "^5.36.1",
+    "all-contributors-cli": "^6.24.0",
+    "doctoc": "^2.2.1",
     "eslint": "~8.15.0",
     "eslint-config-prettier": "^8.6.0",
     "eslint-plugin-deprecation": "^1.3.3",
