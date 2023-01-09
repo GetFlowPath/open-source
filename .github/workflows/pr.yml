@@ -44,7 +44,7 @@ jobs:
       - name: "Set up Node"
         uses: actions/setup-node@v1
         with:
-          node-version: 12.x
+          node-version: 16.x
         if: env.SHOULD_RUN == 'true'
 
       - name: "Restore workspace cache"
