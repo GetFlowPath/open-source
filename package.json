@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
+    "affected": "nx affected",
     "update": "nx migrate latest",
     "dep-graph": "nx dep-graph",
     "contributors:add": "npx all-contributors add",
