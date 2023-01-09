@@ -4,6 +4,16 @@
   "sourceRoot": "packages/ChurnZero/src",
   "projectType": "library",
   "targets": {
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/packages/ChurnZero",
+        "main": "packages/ChurnZero/src/index.ts",
+        "tsConfig": "packages/ChurnZero/tsconfig.lib.json",
+        "assets": ["packages/ChurnZero/*.md"]
+      }
+    },
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
