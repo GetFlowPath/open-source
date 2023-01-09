@@ -1,11 +1,10 @@
-# churnzero
+# ChurnZero
 
-This library was generated with [Nx](https://nx.dev).
+TODO
 
-## Running unit tests
+![Release CI][github-badge-release]
 
-Run `nx test churnzero` to execute the unit tests via [Jest](https://jestjs.io).
+TODO
 
-## Running lint
-
-Run `nx lint churnzero` to execute the lint via [ESLint](https://eslint.org/).
+[//]: # 'LINKS'
+[github-badge-release]: https://github.com/GetFlowPath/open-source/workflows/ReleaseCI/badge.svg

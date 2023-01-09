@@ -1,6 +1,6 @@
 /* eslint-disable */
 export default {
-  displayName: 'churnzero',
+  displayName: 'ChurnZero',
   preset: '../../jest.preset.js',
   globals: {
     'ts-jest': {
@@ -11,5 +11,5 @@ export default {
     '^.+\\.[tj]sx?$': 'ts-jest',
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
-  coverageDirectory: '../../coverage/packages/churnzero',
+  coverageDirectory: '../../coverage/packages/ChurnZero',
 };
