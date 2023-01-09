@@ -102,6 +102,6 @@ jobs:
       #
       # Upload coverage reports
       #
-#      - name: "Upload coverage results to CodeCov"
-#        run: tools/ci/coverage-upload.sh
-#        if: env.SHOULD_RUN == 'true'
+      - name: "Upload coverage results to CodeCov"
+        run: tools/ci/coverage-upload.sh
+        if: env.SHOULD_RUN == 'true'
