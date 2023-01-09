@@ -1,10 +1,30 @@
-# ChurnZero
+<h1>ChurnZero</h1>
+
+![Main CI][github-badge-main]
+
+TODO: description
+
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+## Table of Contents
+
+- [Installation](#installation)
+- [Usage](#usage)
+  - [React Context](#react-context)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
+# Installation
 
 TODO
 
-![Release CI][github-badge-release]
+# Usage
+
+TODO
+
+## React Context
 
 TODO
 
 [//]: # 'LINKS'
-[github-badge-release]: https://github.com/GetFlowPath/open-source/workflows/ReleaseCI/badge.svg
+[github-badge-main]: https://github.com/GetFlowPath/open-source/workflows/publish/badge.svg
