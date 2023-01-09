@@ -1,0 +1,42 @@
+{
+  "projectName": "open-source",
+  "projectOwner": "GetFlowPath",
+  "files": [ "README.md" ],
+  "imageSize": 100,
+  "commit": true,
+  "contributors": [
+    {
+      "login": "benjamincharity",
+      "name": "Benjamin Charity",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/270193?s=460&v=4",
+      "profile": "https://github.com/benjamincharity",
+      "contributions": [
+        "bug",
+        "code",
+        "doc",
+        "infra",
+        "maintenance",
+        "review",
+        "test",
+        "tool"
+      ]
+    },
+    {
+      "login": "atlwendy",
+      "name": "Wendy",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/377552?v=4",
+      "profile": "https://github.com/atlwendy",
+      "contributions": [
+        "bug",
+        "code",
+        "maintenance",
+        "review",
+        "test"
+      ]
+    },
+  ],
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "contributorsPerLine": 7,
+  "skipCi": true
+}
