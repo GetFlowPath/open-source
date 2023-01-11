@@ -1,4 +1,4 @@
-name: "PR CI"
+name: "PR"
 on: pull_request
 env:
   GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
