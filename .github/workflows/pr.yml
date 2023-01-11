@@ -64,7 +64,7 @@ jobs:
       # List affected
       #
       - name: "List affected"
-        run: yarn affected --base=origin/main --head=HEAD
+        run: yarn print-affected --base=origin/main --head=HEAD
         if: env.SHOULD_RUN == 'true'
 
       #
