@@ -35,7 +35,7 @@ A framework-agnostic library for interacting with the ChurnZero API.
 
 ### Inject the ChurnZero snippet
 
-The first step is to inject the ChurnZero snippet into your application. This is done by adding the following script 
+The first step is to inject the ChurnZero snippet into your application. This is done by adding the following script
 tag to your application's HTML.
 
 You can add the snippet directly to your HTML, or you can inject it via the `injectSnippet` method.
@@ -44,13 +44,13 @@ You can add the snippet directly to your HTML, or you can inject it via the `inj
 
 ```html
 <script>
-var ChurnZero = ChurnZero || [];
-(function() {
+  var ChurnZero = ChurnZero || [];
+  (function() {
     var cz = document.createElement('script'); cz.type = 'text/javascript';
     cz.async = true;
     cz.src = 'https://yourvanitydomain.churnzero.net/churnzero.js';
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(cz, s);
-})();
+  })();
 </script>
 ```
 
@@ -76,7 +76,7 @@ ChurnZero.injectSnippet('MyCustomId');
 
 #### Initialize: Set app key and contact
 
-The `initialize` method is used to configure the ChurnZero instance. It should be initialized as soon as the user is 
+The `initialize` method is used to configure the ChurnZero instance. It should be initialized as soon as the user is
 identified (usually as part of the log in process).
 
 It accepts a single object with the following properties:
@@ -109,7 +109,7 @@ ChurnZero.silentMode();
 
 ### Stop
 
-You can stop the ChurnZero instance by calling the `stop` method at any time. This is often used in conjunction with 
+You can stop the ChurnZero instance by calling the `stop` method at any time. This is often used in conjunction with
 tracking the user's session.
 
 ```typescript
