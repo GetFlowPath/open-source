@@ -6,6 +6,7 @@ A framework-agnostic library for interacting with the ChurnZero API.
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
 ## Table of Contents
 
 - [Installation](#installation)
@@ -45,11 +46,13 @@ You can add the snippet directly to your HTML, or you can inject it via the `inj
 ```html
 <script>
   var ChurnZero = ChurnZero || [];
-  (function() {
-    var cz = document.createElement('script'); cz.type = 'text/javascript';
+  (function () {
+    var cz = document.createElement('script');
+    cz.type = 'text/javascript';
     cz.async = true;
     cz.src = 'https://yourvanitydomain.churnzero.net/churnzero.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(cz, s);
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(cz, s);
   })();
 </script>
 ```
@@ -58,12 +61,12 @@ You can add the snippet directly to your HTML, or you can inject it via the `inj
 
 Calling `injectSnippet` will look for a div with the ID of `ChurnZero` to inject the snippet into.
 
-```typescript
+````typescript
 
 ```tsx
 const ChurnZero = ChurnZero();
 ChurnZero.injectSnippet();
-```
+````
 
 Alternatively, you can pass a custom ID to the `injectSnippet` method and the snippet will be injected into that div.
 
@@ -82,13 +85,13 @@ identified (usually as part of the log in process).
 It accepts a single object with the following properties:
 
 | Property     | Type                         | Description                                     |
-|--------------|------------------------------|-------------------------------------------------|
+| ------------ | ---------------------------- | ----------------------------------------------- |
 | `setAppKey`  | `string`                     | The application ID for your ChurnZero instance. |
 | `setContact` | `ChurnZeroSetContactPayload` | The user details for current user.              |
 
 ```typescript
 ChurnZero.setAppKey('your-app-key');
-ChurnZero.setContact({accountExternalId: '12345', contactExternalId: '67890'});
+ChurnZero.setContact({ accountExternalId: '12345', contactExternalId: '67890' });
 ```
 
 #### Stop URL tracking
