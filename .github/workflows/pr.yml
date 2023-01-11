@@ -73,17 +73,6 @@ jobs:
       - name: "Test affected projects"
         run: yarn nx affected:test --base=origin/main --head=HEAD
         if: env.SHOULD_RUN == 'true'
-#      - name: "Determine if Storybook log was generated"
-#        id: check_files
-#        uses: andstor/file-existence-action@v1.0.1
-#        with:
-#          files: "/home/runner/work/open-source/open-source/build-storybook.log"
-#      - name: "Upload Storybook Log (if exists)"
-#        uses: actions/upload-artifact@v2
-#        with:
-#          name: storybook-log
-#          path: /home/runner/work/open-source/open-source/build-storybook.log
-#        if: steps.check_files.outputs.files_exists == 'true'
 
       #
       # Lint affected
