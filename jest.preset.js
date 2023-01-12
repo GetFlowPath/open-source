@@ -12,5 +12,4 @@ module.exports = {
     `!**/index.ts`,
     '!**/node_modules/**',
   ],
-  coverageReporters: ['text', 'json', 'html'],
 };

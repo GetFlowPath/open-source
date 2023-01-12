@@ -27,6 +27,13 @@
       "options": {
         "jestConfig": "packages/ChurnZero/jest.config.ts",
         "passWithNoTests": true
+      },
+      "configurations": {
+        "coverage": {
+          "codeCoverage": true,
+          "ci": true,
+          "coverageReporters": ["lcovonly", "text-summary", "json"]
+        }
       }
     }
   },
