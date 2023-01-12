@@ -57,7 +57,7 @@ jobs:
       # Test affected
       #
       - name: "Test affected projects"
-        run: yarn nx affected:test --base=origin/main --head=HEAD
+        run: yarn nx affected:test --codeCoverage --base=origin/main --head=HEAD
         if: env.SHOULD_RUN == 'true'
 
       #
