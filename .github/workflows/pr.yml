@@ -41,45 +41,33 @@ jobs:
           key: ${{ runner.os }}-${{ matrix.node-version }}-workspace-001-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-${{ matrix.node-version }}-workspace-001-
+        if: env.SHOULD_RUN == 'true'
 
       - name: "Install Dependencies"
         run: yarn install --frozen-lockfile --non-interactive
         if: env.SHOULD_RUN == 'true'
 
-      #
-      # List affected
-      #
       - name: "List affected"
         run: yarn print-affected --base=origin/main --head=HEAD
         if: env.SHOULD_RUN == 'true'
 
-      #
-      # Test affected
-      #
-      - name: "Test affected projects"
-        run: yarn nx affected:test --codeCoverage --base=origin/main --head=HEAD
+      - run: npx nx-cloud start-agent
+        if: env.SHOULD_RUN == 'true'
+      - run: npx nx-cloud start-ci-run
+        if: env.SHOULD_RUN == 'true'
+      - run: npx nx workspace-lint
+        if: env.SHOULD_RUN == 'true'
+      - run: npx nx format:check
+        if: env.SHOULD_RUN == 'true'
+      - run: npx nx affected --target=lint --parallel=3
+        if: env.SHOULD_RUN == 'true'
+      - run: npx nx affected --target=test --parallel=3 --ci --code-coverage
+        if: env.SHOULD_RUN == 'true'
+      - run: npx nx affected --target=build --parallel=3
+        if: env.SHOULD_RUN == 'true'
+      - run: npx nx-cloud stop-all-agents
         if: env.SHOULD_RUN == 'true'
 
-      #
-      # Lint affected
-      #
-      - name: "Lint files"
-        run: yarn nx affected:lint --base=origin/main --head=HEAD
-        if: env.SHOULD_RUN == 'true'
-
-      #
-      # Build affected
-      #
-      - name: "Build affected projects"
-        run: yarn nx affected:build --prod --base=origin/main --head=HEAD
-        if: env.SHOULD_RUN == 'true'
-
-      #
-      # Upload coverage reports
-      #
-#      - name: "Upload coverage results to CodeCov"
-#        run: tools/ci/coverage-upload.sh
-#        if: env.SHOULD_RUN == 'true'
       - name: "Upload coverage results to CodeCov"
         uses: codecov/codecov-action@v3
         if: env.SHOULD_RUN == 'true'
