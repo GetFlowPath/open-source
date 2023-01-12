@@ -4,6 +4,7 @@ env:
   GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
   NX_BRANCH: ${{ github.event.number }}
   NX_RUN_GROUP: ${{ github.run_id }}
+  NX_CLOUD_DISTRIBUTED_EXECUTION: true
 concurrency:
   group: ${{ github.ref }}
   cancel-in-progress: true
@@ -71,3 +72,19 @@ jobs:
       - name: "Upload coverage results to CodeCov"
         uses: codecov/codecov-action@v3
         if: env.SHOULD_RUN == 'true'
+
+  agents:
+    runs-on: ubuntu-latest
+    name: Agent 1
+    timeout-minutes: 60
+    strategy:
+      matrix:
+        agent: [1, 2, 3]
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '14'
+      - run: npm install
+      - name: Start Nx Agent ${{ matrix.agent }}
+        run: npx nx-cloud start-agent
