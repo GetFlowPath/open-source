@@ -48,7 +48,7 @@ jobs:
         if: env.SHOULD_RUN == 'true'
 
       - name: "Restore workspace cache"
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         id: workspace-cache
         with:
           path: node_modules
