@@ -52,39 +52,26 @@ jobs:
         run: yarn print-affected --base=origin/main --head=HEAD
         if: env.SHOULD_RUN == 'true'
 
-      - run: npx nx-cloud start-agent
-        if: env.SHOULD_RUN == 'true'
-      - run: npx nx-cloud start-ci-run
-        if: env.SHOULD_RUN == 'true'
-      - run: npx nx workspace-lint
-        if: env.SHOULD_RUN == 'true'
-      - run: npx nx format:check
-        if: env.SHOULD_RUN == 'true'
-      - run: npx nx affected --target=lint --parallel=3
-        if: env.SHOULD_RUN == 'true'
-      - run: npx nx affected --target=test --parallel=3 --ci --code-coverage
-        if: env.SHOULD_RUN == 'true'
-      - run: npx nx affected --target=build --parallel=3
-        if: env.SHOULD_RUN == 'true'
-      - run: npx nx-cloud stop-all-agents
-        if: env.SHOULD_RUN == 'true'
+      - name: Nx Cloud - Main Job
+        uses: nrwl/ci/.github/workflows/nx-cloud-main.yml@v0.8
+        with:
+          number-of-agents: 3
+          init-commands: |
+            yarn nx-cloud start-ci-run --stop-agents-after="build" --agent-count=3
+          parallel-commands: |
+            yarn nx-cloud record -- yarn nx workspace-lint
+            yarn nx-cloud record -- yarn nx format:check
+          parallel-commands-on-agents: |
+            yarn nx affected --target=lint --parallel=3
+            yarn nx affected --target=test --parallel=3 --ci --code-coverage
+            yarn nx affected --target=build --parallel=3
 
       - name: "Upload coverage results to CodeCov"
         uses: codecov/codecov-action@v3
         if: env.SHOULD_RUN == 'true'
 
   agents:
-    runs-on: ubuntu-latest
-    name: Agent 1
-    timeout-minutes: 60
-    strategy:
-      matrix:
-        agent: [1, 2, 3]
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
-        with:
-          node-version: '14'
-      - run: npm install
-      - name: Start Nx Agent ${{ matrix.agent }}
-        run: npx nx-cloud start-agent
+    name: Nx Cloud - Agents
+    uses: nrwl/ci/.github/workflows/nx-cloud-agents.yml@v0.8
+    with:
+      number-of-agents: 3
