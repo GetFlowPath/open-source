@@ -17,7 +17,12 @@ export interface ChurnZeroEvents {
   toggleSilentMode: (value: boolean) => void;
   toggleSuccessPanel: (value: boolean) => void;
   debug: () => void;
-  push<Args extends {[P in keyof ChurnZeroEvents]: [P, ...Parameters<any[P]>]}[keyof ChurnZeroEvents]>(args: Args): void; // should we allow direct access as a fallback for complex cases?
+  // eslint-disable-next-line max-len
+  push<
+    Args extends { [P in keyof ChurnZeroEvents]: [P, ...Parameters<any[P]>] }[keyof ChurnZeroEvents]
+  >(
+    args: Args
+  ): void; // should we allow direct access as a fallback for complex cases?
 
   // Interaction
   setContact: (payload: ChurnZeroSetContactPayload) => void;
@@ -35,7 +40,7 @@ export interface Config {
 }
 
 export interface ChurnZeroPublicAPI {
-  ChurnZero: ChurnZeroEvents,
+  ChurnZero: ChurnZeroEvents;
 }
 
 const churnZeroPublicAPI: Partial<ChurnZeroPublicAPI> = window as any;
@@ -46,22 +51,19 @@ export class ChurnZero {
   static connect(config: Config) {
     initiateConnection(config.url).then((i) => {
       const churnzero = churnZeroPublicAPI.ChurnZero;
-      console.log({churnzero})
+      console.log({ churnzero });
       if (!churnzero) {
         throw new Error(`ChurnZero isn't defined`);
       }
       churnzero.push(['setAppKey', config.apiKey]);
       churnzero.push(['setContact', config.accountId, config.contactId]);
-      console.log("PUSHED TWICE")
+      console.log('PUSHED TWICE');
       return new ChurnZero(churnzero);
     });
-
   }
   trackEvent(args: Parameters<ChurnZeroEvents['trackEvent']>) {
     this.methods.push(['trackEvent', ...args]);
   }
-
-
 }
 
 function initiateConnection(url: string) {
@@ -72,8 +74,7 @@ function initiateConnection(url: string) {
     script.src = url;
     e.parentNode!.insertBefore(script, e);
 
-    script.onload=() => resolve();
-    script.onerror=() => reject(new Error(`Failed to connect to ChurnZero`));
-  })
+    script.onload = () => resolve();
+    script.onerror = () => reject(new Error(`Failed to connect to ChurnZero`));
+  });
 }
-
