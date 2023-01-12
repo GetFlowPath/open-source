@@ -13,7 +13,7 @@ jobs:
     name: "List - Test - Lint - Build"
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           repository: ${{ github.event.pull_request.head.repo.full_name }}
           ref: ${{ github.event.pull_request.head.ref }}
@@ -28,13 +28,13 @@ jobs:
           fi
 
       - name: "Set up Node"
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v3
         with:
-          node-version: 16.x
+          node-version: 16
         if: env.SHOULD_RUN == 'true'
 
       - name: "Restore workspace cache"
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         id: workspace-cache
         with:
           path: node_modules
