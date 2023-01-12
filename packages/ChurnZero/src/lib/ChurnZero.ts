@@ -51,13 +51,11 @@ export class ChurnZero {
   static connect(config: Config) {
     initiateConnection(config.url).then((i) => {
       const churnzero = churnZeroPublicAPI.ChurnZero;
-      console.log({ churnzero });
       if (!churnzero) {
         throw new Error(`ChurnZero isn't defined`);
       }
       churnzero.push(['setAppKey', config.apiKey]);
       churnzero.push(['setContact', config.accountId, config.contactId]);
-      console.log('PUSHED TWICE');
       return new ChurnZero(churnzero);
     });
   }
