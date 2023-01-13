@@ -36,10 +36,10 @@ jobs:
             npx nx affected --target=build --parallel=3
           final-commands: |
             npx nx-cloud record node ./tools/scripts/coverageMerger.js
-      - uses: actions/upload-artifact@v3
-        with:
-          name: coverage-report
-          path: coverage/lcov.info
+#      - uses: actions/upload-artifact@v3
+#        with:
+#          name: coverage-report
+#          path: coverage/lcov.info
 
   upload_coverage:
     name: 'Upload coverage results to CodeCov'
