@@ -1,10 +1,10 @@
-name: "Main"
+name: 'Main'
 on:
   push:
     branches:
-      - "main"
+      - 'main'
 env:
-  GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+  GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
   NX_BRANCH: ${{ github.event.number }}
   NX_RUN_GROUP: ${{ github.run_id }}
   NX_CLOUD_DISTRIBUTED_EXECUTION: true
@@ -14,7 +14,7 @@ concurrency:
 
 jobs:
   main:
-    name: "List - Test - Lint - Build"
+    name: 'List - Test - Lint - Build'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -24,13 +24,13 @@ jobs:
           fetch-depth: 0
       - run: git fetch --no-tags --prune --depth=50 origin +refs/heads/main:refs/remotes/origin/main
 
-      - name: "Set up Node"
+      - name: 'Set up Node'
         uses: actions/setup-node@v3
         with:
           node-version: 16
         if: env.SHOULD_RUN == 'true'
 
-      - name: "Restore workspace cache"
+      - name: 'Restore workspace cache'
         uses: actions/cache@v3
         id: workspace-cache
         with:
@@ -39,14 +39,14 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-${{ matrix.node-version }}-workspace-001-
 
-      - name: "Install Dependencies"
+      - name: 'Install Dependencies'
         run: yarn install --frozen-lockfile --non-interactive
 
-      - name: "Set NX SHAs"
+      - name: 'Set NX SHAs'
         uses: nrwl/nx-set-shas@v3
         run: npm ci
 
-      - name: "Nx Cloud - Main Job"
+      - name: 'Nx Cloud - Main Job'
         uses: nrwl/ci/.github/workflows/nx-cloud-main.yml@v0.8
         with:
           number-of-agents: 3
@@ -60,7 +60,7 @@ jobs:
             yarn nx affected --target=test --parallel=3 --ci --code-coverage
             yarn nx affected --target=build --parallel=3
 
-      - name: "Upload coverage results to CodeCov"
+      - name: 'Upload coverage results to CodeCov'
         uses: codecov/codecov-action@v3
 
 agents:

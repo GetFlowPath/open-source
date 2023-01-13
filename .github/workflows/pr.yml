@@ -1,7 +1,7 @@
-name: "PR"
+name: 'PR'
 on: pull_request
 env:
-  GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+  GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
   NX_BRANCH: ${{ github.event.number }}
   NX_RUN_GROUP: ${{ github.run_id }}
   NX_CLOUD_DISTRIBUTED_EXECUTION: true
@@ -26,7 +26,7 @@ jobs:
   # The coordinator outputs the combination of task outputs from the agents,
   # both terminal and file outputs
   dte_coordinator:
-    name: "DTE Coordinator"
+    name: 'DTE Coordinator'
     uses: nrwl/ci/.github/workflows/nx-cloud-main.yml@v0.8
     secrets:
       NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
@@ -65,7 +65,7 @@ jobs:
   # Agents receive tasks to execute in bulk whenever they are ready or have
   # finished their previous tasks
   dte_agents:
-    name: "DTE Agents"
+    name: 'DTE Agents'
     uses: nrwl/ci/.github/workflows/nx-cloud-agents.yml@v0.8
     secrets:
       NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
@@ -85,7 +85,7 @@ jobs:
       number-of-agents: 4
 
   list_test_lint_build:
-    name: "List - Test - Lint - Build"
+    name: 'List - Test - Lint - Build'
     needs: dte_coordinator
     runs-on: ubuntu-latest
     steps:
@@ -99,7 +99,7 @@ jobs:
         uses: ./.github/actions/setup
 
       - run: git fetch --no-tags --prune --depth=50 origin +refs/heads/main:refs/remotes/origin/main
-      - name: "Set SHOULD_RUN flag"
+      - name: 'Set SHOULD_RUN flag'
         run: |
           if [[ "${{github.event.head_commit.message}}" =~ (skip\ ci|ci\ skip) ]]; then
             echo "SHOULD_RUN=false" >> $GITHUB_ENV
@@ -107,7 +107,7 @@ jobs:
             echo "SHOULD_RUN=true" >> $GITHUB_ENV
           fi
 
-      - name: "List affected"
+      - name: 'List affected'
         run: yarn print-affected --base=origin/main --head=HEAD
         if: env.SHOULD_RUN == 'true'
 
@@ -117,6 +117,6 @@ jobs:
       - name: Tests with coverage
         run: yarn nx affected --target=test --configuration=coverage --parallel=1 --max-workers=2
 
-      - name: "Upload coverage results to CodeCov"
+      - name: 'Upload coverage results to CodeCov'
         uses: codecov/codecov-action@v3
         if: env.SHOULD_RUN == 'true'
