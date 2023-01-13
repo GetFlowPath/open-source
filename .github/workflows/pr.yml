@@ -120,9 +120,3 @@ jobs:
       - name: "Upload coverage results to CodeCov"
         uses: codecov/codecov-action@v3
         if: env.SHOULD_RUN == 'true'
-
-agents:
-  name: Nx Cloud - Agents
-  uses: nrwl/ci/.github/workflows/nx-cloud-agents.yml@v0.8
-  with:
-    number-of-agents: 3
