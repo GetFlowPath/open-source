@@ -1,7 +1,23 @@
 {
+  "author": "@FlowPath",
+  "bugs": {
+    "url": "https://github.com/GetFlowPath/open-source/issues"
+  },
+  "engines": {
+    "node": ">= 16.0.0",
+    "npm": ">= 6.0.0",
+    "yarn": ">= 1.0.0"
+  },
+  "homepage": "https://github.com/GetFlowPath/open-source",
+  "license": "MIT",
   "name": "@flowpath/churnzero",
-  "version": "0.0.0",
+  "private": false,
   "publishConfig": {
     "access": "public"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/GetFlowPath/open-source.git"
+  },
+  "version": "0.0.0"
 }
