@@ -14,57 +14,18 @@ concurrency:
 
 jobs:
   main:
-    name: 'List - Test - Lint - Build'
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          repository: ${{ github.event.pull_request.head.repo.full_name }}
-          ref: ${{ github.event.pull_request.head.ref }}
-          fetch-depth: 0
-      - run: git fetch --no-tags --prune --depth=50 origin +refs/heads/main:refs/remotes/origin/main
+    name: Nx Cloud - Main Job
+    uses: nrwl/ci/.github/workflows/nx-cloud-main.yml@v0.8
+    with:
+      number-of-agents: 3
+      parallel-commands: |
+        npx nx-cloud record -- npx nx workspace-lint
+        npx nx-cloud record -- npx nx format:check
+      parallel-commands-on-agents: |
+        npx nx affected --target=lint --parallel=3 & npx nx affected --target=test --configuration=coverage --parallel=3 --ci --code-coverage & npx nx affected --target=build --prod --parallel=3
 
-      - name: 'Set up Node'
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16
-        if: env.SHOULD_RUN == 'true'
-
-      - name: 'Restore workspace cache'
-        uses: actions/cache@v3
-        id: workspace-cache
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-${{ matrix.node-version }}-workspace-001-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-${{ matrix.node-version }}-workspace-001-
-
-      - name: 'Install Dependencies'
-        run: yarn install --frozen-lockfile --non-interactive
-
-      - name: 'Set NX SHAs'
-        uses: nrwl/nx-set-shas@v3
-        run: npm ci
-
-      - name: 'Nx Cloud - Main Job'
-        uses: nrwl/ci/.github/workflows/nx-cloud-main.yml@v0.8
-        with:
-          number-of-agents: 3
-          init-commands: |
-            yarn nx-cloud start-ci-run --stop-agents-after="build" --agent-count=3
-          parallel-commands: |
-            yarn nx-cloud record -- yarn nx workspace-lint
-            yarn nx-cloud record -- yarn nx format:check
-          parallel-commands-on-agents: |
-            yarn nx affected --target=lint --parallel=3
-            yarn nx affected --target=test --parallel=3 --ci --code-coverage
-            yarn nx affected --target=build --parallel=3
-
-      - name: 'Upload coverage results to CodeCov'
-        uses: codecov/codecov-action@v3
-
-agents:
-  name: Nx Cloud - Agents
-  uses: nrwl/ci/.github/workflows/nx-cloud-agents.yml@v0.8
-  with:
-    number-of-agents: 3
+  agents:
+    name: Nx Cloud - Agents
+    uses: nrwl/ci/.github/workflows/nx-cloud-agents.yml@v0.8
+    with:
+      number-of-agents: 3
