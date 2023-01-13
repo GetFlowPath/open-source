@@ -41,21 +41,21 @@ jobs:
 #          name: coverage-report
 #          path: coverage/lcov.info
 
-  upload_coverage:
-    name: 'Upload coverage results to CodeCov'
-    needs: main
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-
-      - uses: actions/download-artifact@v3
-        with:
-          name: coverage-report
-          path: coverage
-
-      - uses: codecov/codecov-action@v3
+#  upload_coverage:
+#    name: 'Upload coverage results to CodeCov'
+#    needs: main
+#    runs-on: ubuntu-latest
+#    steps:
+#      - uses: actions/checkout@v3
+#        with:
+#          fetch-depth: 0
+#
+#      - uses: actions/download-artifact@v3
+#        with:
+#          name: coverage-report
+#          path: coverage
+#
+#      - uses: codecov/codecov-action@v3
 
   agents:
     name: 'Nx Cloud - Agents'
