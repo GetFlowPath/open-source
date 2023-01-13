@@ -89,16 +89,8 @@ jobs:
 #    needs: dte_coordinator
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-        with:
-          repository: ${{ github.event.pull_request.head.repo.full_name }}
-          ref: ${{ github.event.pull_request.head.ref }}
-          fetch-depth: 0
-
       - name: Setup
         uses: ./.github/actions/setup
-
-#      - run: git fetch --no-tags --prune --depth=50 origin +refs/heads/main:refs/remotes/origin/main
 
       - name: 'List affected'
         run: yarn print-affected
