@@ -19,6 +19,13 @@
       "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": ["packages/ChurnZero/**/*.ts"]
+      },
+      "configurations": {
+        "report": {
+          "format": "json",
+          "force": true,
+          "outputFile": "reports/packages/GetFlowPath/open-source/lint/report.json"
+        }
       }
     },
     "test": {
