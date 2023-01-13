@@ -2,10 +2,11 @@
 
 A framework-agnostic library for interacting with the ChurnZero API.
 
-![Release CI][github-badge-release]
+![Main][github-badge-release]
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
 ## Table of Contents
 
 - [Installation](#installation)
@@ -199,4 +200,4 @@ ChurnZero.push(['trackEvent', eventName, description, quantity, customFields]);
 ```
 
 [//]: # 'LINKS'
-[github-badge-release]: https://github.com/GetFlowPath/open-source/workflows/ReleaseCI/badge.svg
+[github-badge-release]: https://github.com/GetFlowPath/open-source/workflows/main/badge.svg
