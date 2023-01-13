@@ -99,26 +99,15 @@ jobs:
         uses: ./.github/actions/setup
 
       - run: git fetch --no-tags --prune --depth=50 origin +refs/heads/main:refs/remotes/origin/main
-      - name: 'Set SHOULD_RUN flag'
-        run: |
-          if [[ "${{github.event.head_commit.message}}" =~ (skip\ ci|ci\ skip) ]]; then
-            echo "SHOULD_RUN=false" >> $GITHUB_ENV
-          else
-            echo "SHOULD_RUN=true" >> $GITHUB_ENV
-          fi
 
       - name: 'List affected'
-        run: yarn print-affected --base=origin/main --head=HEAD
-        if: env.SHOULD_RUN == 'true'
+        run: yarn print-affected
 
       - name: 'Lint with reports'
-        run: yarn nx affected --target=lint --parallel=2 --max-warnings=0
-        if: env.SHOULD_RUN == 'true'
+        run: yarn nx affected --target=lint
 
       - name: 'Tests with coverage'
         run: yarn nx affected --target=test --configuration=coverage --parallel=1 --max-workers=2
-        if: env.SHOULD_RUN == 'true'
 
       - name: 'Upload coverage results to CodeCov'
         uses: codecov/codecov-action@v3
-        if: env.SHOULD_RUN == 'true'
