@@ -102,10 +102,10 @@ jobs:
         run: yarn print-affected
 
       - name: 'Lint with reports'
-        run: yarn nx affected --target=lint
+        run: yarn nx affected:lint
 
       - name: 'Tests with coverage'
-        run: yarn nx affected --target=test --configuration=coverage --parallel=1 --max-workers=2
+        run: yarn nx affected:test --configuration=coverage --parallel=1 --max-workers=2
 
       - name: 'Upload coverage results to CodeCov'
         uses: codecov/codecov-action@v3
