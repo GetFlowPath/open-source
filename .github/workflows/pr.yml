@@ -111,8 +111,8 @@ jobs:
         run: yarn print-affected --base=origin/main --head=HEAD
         if: env.SHOULD_RUN == 'true'
 
-      - name: Lint with reports
-        run: yarn nx affected --target=lint --configuration=report --parallel=2 --max-warnings=0
+      - name: 'Lint with reports'
+        run: yarn nx affected --target=lint --parallel=2 --max-warnings=0
         # Uses the cache generated in the distributed step (Needed for the sonar jest coverage reports).
       - name: Tests with coverage
         run: yarn nx affected --target=test --configuration=coverage --parallel=1 --max-workers=2
