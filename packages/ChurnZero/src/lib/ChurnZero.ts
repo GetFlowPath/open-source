@@ -9,10 +9,15 @@ import {
 export interface ChurnZeroEvents {
   // Setup & Management
   injectSnippet: (node?: HTMLDivElement) => void;
+  incrementAttribute: (payload: ChurnZeroAttributePayload) => void;
   setAppKey: (appKey: string) => void;
   setModule: (moduleName: string) => void;
   verify: () => void;
   stop: () => void;
+  open: () => void;
+  close: () => void;
+  silent: () => void;
+  urltracking: () => void;
   toggleUrlTracking: (value: boolean) => void;
   toggleSilentMode: (value: boolean) => void;
   toggleSuccessPanel: (value: boolean) => void;
@@ -46,26 +51,49 @@ export interface ChurnZeroPublicAPI {
 const churnZeroPublicAPI: Partial<ChurnZeroPublicAPI> = window as any;
 
 export class ChurnZero {
-  constructor(private methods: ChurnZeroEvents) {}
+  constructor(private events: ChurnZeroEvents) {}
 
   static connect(config: Config) {
-    initiateConnection(config.url).then((i) => {
+    return initiateConnection(config.url).then((i) => {
       const churnzero = churnZeroPublicAPI.ChurnZero;
-      if (!churnzero) {
-        throw new Error(`ChurnZero isn't defined`);
-      }
-      churnzero.push(['setAppKey', config.apiKey]);
-      churnzero.push(['setContact', config.accountId, config.contactId]);
-      return new ChurnZero(churnzero);
-    });
+      console.log({churnzero})
+      if (churnzero) {
+        churnzero.push(['setAppKey', config.apiKey]);
+        churnzero.push(['setContact', config.accountId, config.contactId]);
+        return new ChurnZero(churnzero);
+      } else return null;
+    }).catch((e) => {throw new Error(e)});
   }
-  trackEvent(args: Parameters<ChurnZeroEvents['trackEvent']>) {
-    this.methods.push(['trackEvent', ...args]);
+
+  toggleSuccessPanel(args: boolean) {
+    args ? this.events.push(['open']) : this.events.push(['close']);
+  }
+  stop() {
+    this.events.push(['stop'])
+  }
+  setModule(args: string) {
+    this.events.push(['setModule', args])
+  }
+  toggleSilentMode(args: boolean) {
+    this.events.push(['silent', args]);
+  }
+  toggleUrlTracking(args: boolean) {
+    this.events.push(['urltracking', args]);
+  }
+  incrementAttribute(args: ChurnZeroAttributePayload) {
+    const unpackArgs = [args.entity, args.attribute.name, args.attribute.value];
+    this.events.push(['incrementAttribute', ...unpackArgs]);
+  }
+  trackEvent(args: ChurnZeroTrackEventPayload) {
+    const unpackedArgs = [args.eventName, args.description, args.quantity, args.customFields]
+    console.log('tractEvent triggered');
+    this.events.push(['trackEvent', ...unpackedArgs]);
   }
 }
 
 function initiateConnection(url: string) {
   return new Promise<void>((resolve, reject) => {
+    console.log("INITIATE")
     const script = document.createElement('script');
     const e = document.getElementsByTagName('script')[0];
     script.async = true;
