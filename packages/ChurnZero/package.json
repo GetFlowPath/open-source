@@ -13,8 +13,7 @@
   "name": "@flowpath/churnzero",
   "private": false,
   "publishConfig": {
-    "access": "public",
-    "directory": "../../dist/packages/ChurnZero"
+    "access": "public"
   },
   "repository": {
     "type": "git",
