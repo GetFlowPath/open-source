@@ -29,6 +29,8 @@ jobs:
     uses: nrwl/ci/.github/workflows/nx-cloud-main.yml@v0.8
     secrets:
       NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
+    env:
+      NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
     permissions:
       contents: read
       actions: read
@@ -68,6 +70,8 @@ jobs:
     uses: nrwl/ci/.github/workflows/nx-cloud-agents.yml@v0.8
     secrets:
       NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
+    env:
+      NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
     permissions:
       contents: read
       actions: read
@@ -87,6 +91,10 @@ jobs:
     name: 'List - Test - Lint - Build'
     needs: dte_coordinator
     runs-on: ubuntu-latest
+    secrets:
+      NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
+    env:
+      NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
     steps:
       - uses: actions/checkout@v3
         with:
@@ -99,18 +107,12 @@ jobs:
 
       - name: 'List affected'
         run: yarn print-affected
-        environment-variables: |
-          NX_CLOUD_ACCESS_TOKEN=${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
 
       - name: 'Lint with reports'
         run: yarn nx affected:lint
-        environment-variables: |
-          NX_CLOUD_ACCESS_TOKEN=${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
 
       - name: 'Tests with coverage'
         run: yarn nx affected:test --configuration=coverage --parallel=1 --max-workers=2
-        environment-variables: |
-          NX_CLOUD_ACCESS_TOKEN=${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
 
       - name: 'Upload coverage results to CodeCov'
         uses: codecov/codecov-action@v3
