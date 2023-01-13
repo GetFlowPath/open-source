@@ -26,6 +26,15 @@ runs:
         # and sets the NPM_CONFIG_USERCONFIG environment variable.
         registry-url: https://registry.npmjs.org
 
+    - name: "Restore workspace cache"
+      uses: actions/cache@v3
+      id: workspace-cache
+      with:
+        path: node_modules
+        key: ${{ runner.os }}-${{ matrix.node-version }}-workspace-001-${{ hashFiles('**/yarn.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-${{ matrix.node-version }}-workspace-001-
+
     - name: Install dependencies
       shell: bash
       run: yarn install --immutable --immutable-cache
