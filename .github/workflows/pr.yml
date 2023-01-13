@@ -20,7 +20,8 @@ concurrency:
 
 jobs:
   main:
-    - uses: nrwl/ci/.github/workflows/nx-cloud-main.yml@v0.8
+    - name: 'Nx Cloud - Main Job'
+      uses: nrwl/ci/.github/workflows/nx-cloud-main.yml@v0.8
       with:
         number-of-agents: 3
         parallel-commands: |
