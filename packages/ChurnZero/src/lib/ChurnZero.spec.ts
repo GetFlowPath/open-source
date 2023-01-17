@@ -45,11 +45,9 @@ it('should initiate connection', async() => {
   const script = insertBefore.mock.calls[0][0] as HTMLScriptElement;
   const api = fakeCZApi();
   script.onload!(undefined as any);
-  console.log("BEFORE")
 
   await new Promise(process.nextTick);
   jest.advanceTimersByTime(1000)
   await expect(api.push).nthCalledWith(1, ['setAppKey', config.apiKey]);
-  console.log("EXPECTED")
   expect(api.push).toBeCalledTimes(2);
 });

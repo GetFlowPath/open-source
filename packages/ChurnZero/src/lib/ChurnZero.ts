@@ -27,7 +27,7 @@ export interface ChurnZeroEvents {
     Args extends { [P in keyof ChurnZeroEvents]: [P, ...Parameters<any[P]>] }[keyof ChurnZeroEvents]
   >(
     args: Args
-  ): void; // should we allow direct access as a fallback for complex cases?
+  ): void;
 
   // Interaction
   setContact: (payload: ChurnZeroSetContactPayload) => void;
@@ -65,8 +65,20 @@ export class ChurnZero {
     }).catch((e) => {throw new Error(e)});
   }
 
-  toggleSuccessPanel(args: boolean) {
-    args ? this.events.push(['open']) : this.events.push(['close']);
+  trackEvent(args: ChurnZeroTrackEventPayload) {
+    const unpackedArgs = [args.eventName, args.description, args.quantity, args.customFields]
+    this.events.push(['trackEvent', ...unpackedArgs]);
+  }
+  debug() {
+    this.events.push(['debug']);
+  }
+  incrementAttribute(args: ChurnZeroAttributePayload) {
+    const unpackArgs = [args.entity, args.attributes[0].name, args.attributes[0].value];
+    this.events.push(['incrementAttribute', ...unpackArgs]);
+  }
+  setAttribute(args: ChurnZeroAttributePayload) {
+    const unpackArgs = args.attributes.reduce((acc:any, curr) => {acc[curr['name']] = curr['value']; return acc;}, {});
+    this.events.push(['setAttribute', args.entity, unpackArgs]);
   }
   stop() {
     this.events.push(['stop'])
@@ -74,26 +86,19 @@ export class ChurnZero {
   setModule(args: string) {
     this.events.push(['setModule', args])
   }
+  toggleSuccessPanel(args: boolean) {
+    args ? this.events.push(['open']) : this.events.push(['close']);
+  }
   toggleSilentMode(args: boolean) {
     this.events.push(['silent', args]);
   }
   toggleUrlTracking(args: boolean) {
     this.events.push(['urltracking', args]);
   }
-  incrementAttribute(args: ChurnZeroAttributePayload) {
-    const unpackArgs = [args.entity, args.attribute.name, args.attribute.value];
-    this.events.push(['incrementAttribute', ...unpackArgs]);
-  }
-  trackEvent(args: ChurnZeroTrackEventPayload) {
-    const unpackedArgs = [args.eventName, args.description, args.quantity, args.customFields]
-    console.log('tractEvent triggered');
-    this.events.push(['trackEvent', ...unpackedArgs]);
-  }
 }
 
 function initiateConnection(url: string) {
   return new Promise<void>((resolve, reject) => {
-    console.log("INITIATE")
     const script = document.createElement('script');
     const e = document.getElementsByTagName('script')[0];
     script.async = true;

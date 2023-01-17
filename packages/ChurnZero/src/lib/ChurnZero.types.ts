@@ -24,7 +24,7 @@ export type ChurnZeroSetContactPayload = {
 export type ChurnZeroAttributeEntity = 'contact' | 'account';
 
 export type ChurnZeroAttributePayload = {
-  attribute: { name: string; value: unknown };
+  attributes: { name: string; value: unknown }[];
   entity: ChurnZeroAttributeEntity;
 };
 

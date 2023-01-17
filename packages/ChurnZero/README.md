@@ -94,20 +94,20 @@ ChurnZero.setAppKey('your-app-key');
 ChurnZero.setContact({ accountExternalId: '12345', contactExternalId: '67890' });
 ```
 
-#### Stop URL tracking
+#### Toggle URL tracking
 
-URL tracking can be disabled at any time:
+URL tracking can be enabled/disabled at any time:
 
 ```typescript
-ChurnZero.stopUrlTracking();
+ChurnZero.toggleUrlTracking(boolean);
 ```
 
-#### Silent mode
+#### Toggle Silent mode
 
-This will continue tracking but hide all visible elements:
+Silent mode is to continue tracking but hide all visible elements. The silent mode can be enabled/disabled.
 
 ```typescript
-ChurnZero.silentMode();
+ChurnZero.toggleSilentMode(boolean);
 ```
 
 ### Stop
@@ -137,10 +137,13 @@ The entity must be either `contact` or `account` and any number of attributes ca
 ```typescript
 ChurnZero.setAttribute({
   entity: 'account', // 'contact | 'account'
-  attributes: {
-    'Email Enabled': true,
-    'Emails Sent': 100,
-  },
+  attributes: [{
+    'name': 'Email Enabled',
+    'value': true,
+  }, {
+    'name': 'Max users',
+    'value': 100,
+  }]
 });
 ```
 
@@ -172,23 +175,6 @@ ChurnZero.trackEvent({
     'Custom Field 2': 'Custom Field 2 Value',
   },
 });
-```
-
-### Register events
-
-Custom events can be registered:
-
-```typescript
-ChurnZero.registerEvent({
-  eventName: 'My custom event',
-  callback: (data) => console.log('Here is my data! ', data),
-});
-```
-
-Deregister events:
-
-```typescript
-ChurnZero.deregisterEvent('My custom event');
 ```
 
 ### Push: The escape hatch
