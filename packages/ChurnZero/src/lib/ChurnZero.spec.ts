@@ -4,8 +4,8 @@ const mockFn = jest.fn(() => {});
 
 function fakeConfig() {
   return {
-    url: 'https://getflowpath-dev.us2app.churnzero.net/',
-    apiKey: '1!4p97ShbYcIcmXdAGdudvviZ97ycbazSFQLP8AQZztG4t11DC',
+    url: 'https://yourdomain-dev.us2app.churnzero.net/',
+    applicationKey: '1!4p97SbYcIcmXdAGduasdddvviZ97ycbazSFQLP8AQZztG4t11DC',
   };
 }
 function fakeCZApi() {
@@ -48,6 +48,6 @@ it('should initiate connection', async() => {
 
   await new Promise(process.nextTick);
   jest.advanceTimersByTime(1000)
-  await expect(api.push).nthCalledWith(1, ['setAppKey', config.apiKey]);
+  await expect(api.push).nthCalledWith(1, ['setAppKey', config.applicationKey]);
   expect(api.push).toBeCalledTimes(2);
 });
