@@ -39,7 +39,7 @@ export interface ChurnZeroEvents {
 
 export interface Config {
   url: string;
-  apiKey: string;
+  applicationKey: string;
   accountId?: string;
   contactId?: string;
 }
@@ -56,9 +56,8 @@ export class ChurnZero {
   static connect(config: Config) {
     return initiateConnection(config.url).then((i) => {
       const churnzero = churnZeroPublicAPI.ChurnZero;
-      console.log({churnzero})
       if (churnzero) {
-        churnzero.push(['setAppKey', config.apiKey]);
+        churnzero.push(['setAppKey', config.applicationKey]);
         churnzero.push(['setContact', config.accountId, config.contactId]);
         return new ChurnZero(churnzero);
       } else return null;

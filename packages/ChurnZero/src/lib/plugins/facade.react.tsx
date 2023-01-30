@@ -1,22 +1,23 @@
 import React, { ReactElement, ReactNode } from 'react';
+import {ChurnZero, Config} from "@open-source/ChurnZero";
 
 export type ChurnZeroContextValue = {
   churnZero: any;
 };
 export type ChurnZeroContextShape = {
   children: ReactNode;
+  config: Config;
 };
 
 const ChurnZeroContext = React.createContext<ChurnZeroContextValue | undefined>(undefined);
 ChurnZeroContext.displayName = 'ChurnZeroContext';
 
-const ChurnZeroProvider = React.memo((props: ChurnZeroContextShape): ReactElement => {
-  // TODO
-  const churnZero: any = {};
-
+const ChurnZeroProvider = React.memo( (props: ChurnZeroContextShape): ReactElement => {
+  const churnZeroGenerator: any = async () => await ChurnZero.connect(props.config);
+  const churnZero = churnZeroGenerator();
   const value: ChurnZeroContextValue = React.useMemo(
     () => ({
-      churnZero,
+      ...churnZero,
     }),
     [churnZero]
   );
