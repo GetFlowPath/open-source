@@ -17,7 +17,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/GetFlowPath/open-source.git"
+    "url": "git+https://github.com/GetFlowPath/open-source.git"
   },
-  "version": "0.0.1"
+  "version": "0.4.0",
+  "description": "<h1>ChurnZero</h1>",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
 }

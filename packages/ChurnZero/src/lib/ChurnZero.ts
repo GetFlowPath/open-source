@@ -94,10 +94,10 @@ export class ChurnZero {
   toggleUrlTracking(args: boolean) {
     this.events.push(['urltracking', args]);
   }
-  openSuccessCenter() {
+  open() {
     this.events.push(['open']);
   }
-  closeSuccessCenter() {
+  close() {
     this.events.push(['close']);
   }
 }
