@@ -94,6 +94,12 @@ export class ChurnZero {
   toggleUrlTracking(args: boolean) {
     this.events.push(['urltracking', args]);
   }
+  openSuccessCenter() {
+    this.events.push(['open']);
+  }
+  closeSuccessCenter() {
+    this.events.push(['close']);
+  }
 }
 
 function initiateConnection(url: string) {
