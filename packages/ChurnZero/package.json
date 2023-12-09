@@ -10,7 +10,7 @@
   },
   "homepage": "https://github.com/GetFlowPath/open-source",
   "license": "MIT",
-  "name": "@flowpath/churnzero",
+  "name": "@getflowpath/churnzero",
   "private": false,
   "publishConfig": {
     "access": "public"
