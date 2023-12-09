@@ -19,7 +19,7 @@
     "type": "git",
     "url": "git+https://github.com/GetFlowPath/open-source.git"
   },
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "<h1>ChurnZero</h1>",
   "main": "index.js",
   "scripts": {
