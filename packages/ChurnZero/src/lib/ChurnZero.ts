@@ -86,6 +86,7 @@ export class ChurnZero {
     this.events.push(['setModule', args])
   }
   toggleSuccessPanel(args: boolean) {
+    console.log({args})
     args ? this.events.push(['open']) : this.events.push(['close']);
   }
   toggleSilentMode(args: boolean) {
